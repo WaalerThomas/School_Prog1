@@ -1,0 +1,39 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage[backend=biber, style=alphabetic, sorting=ynt]{biblatex}
+\usepackage{xcolor}
+
+\author{Thomas Waaler}
+\title{Obligatorisk Oppgave 1}
+
+\addbibresource{Oblig1_ThomasWaaler.bib}
+
+\begin{document}
+\maketitle
+
+\section*{Teorioppgave 1 - Variabel}
+Ett variabel er en måte å lagre data på. Man kan tenke at navnet til variabelen "peker" til dataen den inneholder, eller heller "peker" til minneadressen hvor dataen er lokalisert. Så når man kaller variabelet noen steder i koden, og det er tilgjengelig i scopet, vet maskinen hva slags data som skal bli brukt.
+
+\medskip 
+
+\section*{Teorioppgave 2 - Datatyper}
+\begin{enumerate}[label=\alph*)]
+	\item \textit{"Hamburger"} er en \textcolor{teal}{\textbf{String}} fordi det er to anførselstegn rundt ordet.
+	
+	\item \textit{5.52} er en \textcolor{teal}{\textbf{Float}} fordi det er ett desimaltall. Det brukes punktum som desimaltegn istedenfor komma fordi komma blir vanligvis brukt som annen annotering i koden, men også fordi standarden kommer fra et land hvor de bruker punktum som desimaltegn.
+	
+	\item \textit{4195} er en \textcolor{teal}{\textbf{Integer}} fordi det er ett heltall, er ikke omringet av anførselstegn, og tallet er mellom \textcolor{olive}{-2,147,483,648} og \textcolor{olive}{2,147,483,648} siden størrelsen på en \textcolor{teal}{\textbf{Integer}} er 4-bytes i de fleste språkene. \cite{integer}
+	
+	\item \textit{False} er en \textcolor{teal}{\textbf{Boolean}} fordi ordene "\textcolor{orange}{\textbf{True}}" og "\textcolor{orange}{\textbf{False}}" er nøkkelord for å representere om et uttrykk er sant eller usant. Det er også mulig å representere sant og usant som \textcolor{olive}{1} og \textcolor{olive}{0}.
+\end{enumerate}
+
+\bigskip
+
+\printbibliography[title={Kilder}]
+
+\end{document}

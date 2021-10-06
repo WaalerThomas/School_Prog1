@@ -1,0 +1,11 @@
+*/*.zip
+*/*.bbl
+*/*.aux
+*/*.bcf
+*/*.blg
+*/*.dvi
+*/*.log
+*/*.run.xml
+*/*.synctex.gz
+
+*/__pycache__

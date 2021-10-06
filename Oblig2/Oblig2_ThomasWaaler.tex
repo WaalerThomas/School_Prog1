@@ -1,0 +1,100 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{biblatex}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\author{Thomas Waaler}
+\title{Obligatorisk Oppgave 2}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+\maketitle
+
+
+\section*{Teorioppgave 1 - if-test}
+En if-test er en måte å sjekke om ett eller flere uttrykk er sant eller usant.
+Dersom man ønsker å sjekke flere forskjellige uttrykk etter hverandre men ønsker at bare én av if-blokkene skal bli kjørt så kan man bruke \textcolor{orange}{\textbf{if}}, \textcolor{orange}{\textbf{elif}} og \textcolor{orange}{\textbf{else}}. For eksempel:
+
+\begin{lstlisting}[language=Python]
+variable = 20
+if variable <= 0:
+	# Enters this codeblock only when "variable" is less than or
+	# equal to 0
+elif variable == 22:
+	# Enters this codeblock only when "variable" is equal to 22
+else:
+	# Enters this codeblock only when the two other if statements
+	# haven't been hit
+\end{lstlisting}
+
+
+\section*{Teorioppgave 2 - for-løkke}
+En for-løkke er en metode å iterere \textbf{x} antall ganger som oppgitt, f.eks. gjennom uttrykk, og utførerer en kode-blokk for hver iterasjon.
+
+\subsection*{Eksempel 1 - Løkke med \textcolor{violet}{\textbf{range}}()}
+Si vi har en kode-blokk som vi har lyst til å kjøre flere ganger. Istedenfor å skrive den samme kode-blokken flere ganger så kan man benytte en for-løkke. Som vist:
+\begin{lstlisting}[language=Python]
+# We want to run a code-block 6 times
+for numb in range(7):	# Range from 0 to 6 = 7
+	random_var = numb ** 2
+	other_var = (random_var + numb) * 0.25
+	
+	DistantFunction(other_var)
+\end{lstlisting}
+
+\subsection*{Eksempel 2 - Løkke på \textcolor{teal}{List}}
+Si vi har en liste over spill hvor vi ønsker å printe ut hvert element med litt tekst. Da kan man bruke en for-løkke på listen. Som vist:
+\begin{lstlisting}[language=Python]
+# One way of doing this
+games_list = ['Deep Rock Galactic', 'World of Warcraft', 
+			  'Guild Wars 2', 'Dark Souls 3', 'Code Vein']
+
+# Current element is passed into 'game' variable
+for game in games_list: 
+	print(f"{game} is fun to play!")
+\end{lstlisting}
+
+
+\section*{Teorioppgave 3 - liste}
+En \textcolor{teal}{List} er et variabel som inneholder elementer med data (f.eks \textcolor{teal}{String}, \textcolor{teal}{Int}, \textcolor{teal}{Float}, osv). \textcolor{teal}{List} kan brukes til å lagre en kolleksjon av data, for eksempel en liste over planeter i solsystemet vårt, sånn at man slipper å lage ett variabel for hver planet. Som vist:
+\begin{lstlisting}[language=Python]
+# Instead of doing this
+mercury_name = "Mercury"
+venus_name = "Venus"
+earth_name = "Earth"
+
+# We can do this
+planet_names = ["Mercury", "Venus", "Earth"]
+\end{lstlisting}
+
+\end{document}

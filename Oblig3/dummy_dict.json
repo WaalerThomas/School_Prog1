@@ -1,0 +1,10 @@
+{
+    "name": "Johnsson, John",
+    "age": "32",
+    "job": "Accountant",
+    "tasks": [
+        "Task 1",
+        "Task 2",
+        "Task 3"
+    ]
+}
