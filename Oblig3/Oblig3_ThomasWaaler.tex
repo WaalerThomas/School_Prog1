@@ -45,14 +45,38 @@
 \section*{Teorioppgave 1 - Dictionary}
 \begin{enumerate}[label=\alph*)]
 	% A	
-	\item Hello
+	\item En \textcolor{orange}{\textbf{Dictionary}} er et variabel som inneholder elementer bestående av \textcolor{teal}{\textbf{key}} og \textcolor{teal}{\textbf{value}} par og kan bli referert ved å bruke \textcolor{teal}{\textbf{key}} navnet.  Forskjellen mellom \textcolor{orange}{\textbf{Dictionary}} og \textcolor{orange}{\textbf{List}} er hvordan de refererer til verdiene sine.  Med \textcolor{orange}{\textbf{Dictionary}} så bruker man en "nøkkel" for å referere,  mens i en liste bruker man en indeks.
+	
+	Fordelene med \textcolor{orange}{\textbf{Dictionary}} er at den er uordnet, som vil si at det spiller ingen rolle hvilken rekkefølge elementene er satt opp og man slipper å styre med indeksering av elementer.  Ulempene er at man ikke kan ha duplikat \textcolor{teal}{\textbf{key}} verdier.
+	
+	Fordelene med \textcolor{orange}{\textbf{List}} er at man kan ha duplikate elementer siden listen er indeksert.  En ulempe med denne datatypen er dersom man itererer gjennom listen og skal fjerne ett element så kan man ikke bare fortsette,  for da har ikke neste element samme indeks som før man slettet ett element.
 	
 	% B
-	\item Yeh
+	\item For å hente ut en verdi fra en \textcolor{orange}{\textbf{Dictionary}} har man to forskjellige metoder. 
+	
+	Metode 1 er å bruke firkant paranteser etter variabelet,  likt som med lister,  men at man oppgir en \textcolor{teal}{\textbf{key}} innenfor disse parantesene.
+	
+	Metode 2 er a bruke 	\textcolor{orange}{\textbf{Dictionary}} sin get() metode og oppgi en \textcolor{teal}{\textbf{key}} som parameter.
+	\begin{lstlisting}[language=Python]
+	rand_dict = {
+		"first_name": "person",
+		"last_name": "personsson"		
+		"age": 30
+	}
+	
+	# Method 1: Accessing value through square bracket
+	first_name_1 = rand_dict['first_name']
+	
+	# Method 2: Accessing value with .get() method
+	first_name_2 = rand_dict.get("first_name")
+	\end{lstlisting}
 \end{enumerate}
 
 \medskip
 \section*{Teorioppgave 2 - Funksjoner}
+Funksjoner er nyttig dersom man har en kode-blokk som man utførerer flere steder i koden sin men kode-blokken endrer seg ikke eller bare litt.  Da kan man heller gjør om kode-blokken til en funksjon som gjør at det blir enklere å lese koden,  enklere å vedlikeholde dersom noe går galt,  og gjør at man kan generalisere kode-blokker sånn at man slipper å skrive så mye.
 
+\medskip
+Med funksjoner kan man også utføre handlinger/regning på variabler man har oppgitt som parametere og få resultatet av dette returnert til seg. 
 
 \end{document}
