@@ -4,20 +4,17 @@
 # Info: BlackJack
 # ==================================================
 import random
-'''
-Én vanlig kortstokk med 52 kort.
-1-10, J, Q, K. Fire av hver. Har ingen betydning for hva slags type(hjerte, kløver, spar, ruter)
 
-Utfall:
-    * Spilleren vinner -> Spilleren tjener like mange chips som spesifisert i innsatsen
-    * Dealeren vinner -> Spilleren mister like mange chips som spesifisert i innsatsen
-    * Ingen vinner -> Spillerens chips forblir det samme som før innsatsen
-    * Blackjack -> Spilleren tjener 2x antallet chips spesifisert i innsatsen
-'''
+def get_int_input(message: str) -> int:
+    while True:
+        try:
+            user_input = int( input(message) )
+            return user_input
+        except ValueError:
+            print("[ERROR]: Not a valid number")
 
-# NOTE Only Ace will have two different values (Depending of the hand total)
 class Card():
-    def __init__(self, name: str, value: int) -> None:
+    def __init__(self, name: str, value: int):
         self.name = name
         self.value = value
         self.face_up = True
@@ -46,7 +43,7 @@ class Deck():
         '''Shuffles the whole deck'''
         random.shuffle(self.cards)
 
-    def draw_card(self, face_up=True) -> Card:
+    def draw_card(self, face_up: bool=True) -> Card:
         '''Draws a card out of the deck and returns it'''
         card = self.cards.pop()
         card.face_up = face_up
@@ -68,10 +65,10 @@ class Contender():
 
     def get_hand_value(self) -> int:
         total_value = 0
-        aces = []       # Store the aces for calulating if its 1 or 11 after the other cards
+        aces = []       # Store the aces for calulating value after the other cards
         for card in self.hand:
             if card.face_up == False:
-                continue    # Skip card if it's face down
+                continue
 
             if "Ace" in card.name:
                 aces.append(card)
@@ -112,76 +109,51 @@ class Dealer(Contender):
 
 
 class Player(Contender):
-    def __init__(self, chips=100):
+    def __init__(self, chips: int=100):
         super().__init__()
         self.chips = chips
 
 
-def get_int_input(message: str) -> int:
-    while True:
-        try:
-            user_input = int( input(message) )
-            return user_input
-        except ValueError:
-            print("[ERROR]: Not a valid number")
-
-# Main entry point
-if __name__ == "__main__":
-    # Opening text
-    print("BlackJack By Thomas Waaler")
-
-    is_running = True
-    dealer = Dealer()
-    player = Player()
-    deck = Deck()
-    pot = 0
-
-    # Game Loop
-    while is_running:
-        # Shuffle Round
-        # -------------
-        print("Shuffling the deck...\n")
-        deck.shuffle()
-        # -------------
-
-        # Betting Round
-        # -------------
-        print("==========[ Betting Round ]==========")
-        print(f"You have {player.chips} chips\n")
-
-        good_bet = False
-        while not good_bet:
-            player_bet = get_int_input("How much do you bet? ")
-            if player_bet <= 0 or player_bet > player.chips:
-                print(f"Invalid chip amount. Must be from 1 to {player.chips}\n")
-            else:
-                good_bet = True
-        
-        print(f"You bet {player_bet}\n")
-        pot = player_bet
-        # -------------
-
-        # Dealing round
-        # -------------
-        print("==========[ Dealing ]==========")
-        player.add_to_hand( deck.draw_card() )
-        dealer.add_to_hand( deck.draw_card() )
-        player.add_to_hand( deck.draw_card() )
-        dealer.add_to_hand( deck.draw_card(False) )
+class Game():
+    def __init__(self) -> None:
+        self.is_running = True
+        self.player = Player()
+        self.dealer = Dealer()
+        self.deck = Deck()
+        self.pot = 0
     
-        print("Dealers hand:")
-        dealer.print_hand_list()
-        print(f"Total value: {dealer.get_hand_value()}")
+    def start(self):
+        self._game_loop()
+    
+    def player_win(self, blackjack: bool=False):
+        if blackjack:
+            reward = self.pot * 2
+            print("BLACKJACK!!")
+        else:
+            reward = self.pot
 
-        print("\nYour hand:")
-        player.print_hand_list()
-        print(f"Total value: {player.get_hand_value()}\n")
+        print(f"You won a total of {reward} chips\n")
+        self.player.chips += reward
+    
+    def dealer_win(self):
+        print(f"You lost a total {self.pot} chips\n")
+        self.player.chips -= self.pot
+    
+    def _new_game(self):
+        # Will only continue if answer is y, else end
+            end_input = input("Do you wish to play again? (y/n) ")
+            if "y" == end_input:
+                self.dealer.clear_hand()
+                self.player.clear_hand()
+                print("\n\n\n==========[ Next Round ]==========")
+            else:
+                self.is_running = False
+                print(f"You ended the game with {self.player.chips} chips left")
 
-        # TODO Check for blackjack: Got 21. Player wins double of pot
-        # -------------
-
-        # Play Round
-        # -------
+    def _playing_round(self) -> int:
+        '''Enters the playing round loop
+        
+        returns: -1 if busted, 0 if successful'''
         playing_round = True
         while playing_round:
             print("Do you wish to hit or stay?\n1 - Hit\n2 - Stay")
@@ -189,48 +161,135 @@ if __name__ == "__main__":
             if play_choice == 1:
                 print("\nYou chose to Hit!\n")
                 
-                player.add_to_hand( deck.draw_card() )
+                self.player.add_to_hand( self.deck.draw_card() )
                 print("You got dealt a card. Your hand:")
-                player.print_hand_list()
-                print(f"Total value: {player.get_hand_value()}\n")
+                self.player.print_hand_list()
+                print(f"Total value: {self.player.get_hand_value()}\n")
 
-                # TODO Check to see if player has busted or not
+                if self.player.get_hand_value() > 21:
+                    print("You BUSTED!")
+                    self.dealer_win()
+                    self._new_game()
+                    return -1
 
             elif play_choice == 2:
                 print("\nYou chose to Stay!\n")
-                # TODO Implement
                 playing_round = False
             
             else:
                 print("\nInvalid choice. It's either 1 or 2\n")
-        # -------
+        
+        return 0
 
-        # Dealers play
-        # ------------
-        print("==========[ Dealers Play ]==========")
-        # First flip the dealers second card
-        dealer.flip_up_hand()
+    def _game_loop(self):
+        while self.is_running:
+            # Shuffle Round
+            # -------------
+            print("Shuffling the deck...\n")
+            self.deck.shuffle()
+            # -------------
 
+            # Betting Round
+            # -------------
+            print("==========[ Betting Round ]==========")
+            print(f"You have {self.player.chips} chips\n")
 
-        dealer_value = dealer.get_hand_value()
-        print("Dealers hand:")
-        dealer.print_hand_list()
-        print(f"Total value: {dealer_value}")
-        # ------------
+            good_bet = False
+            while not good_bet:
+                player_bet = get_int_input("How much do you bet? ")
+                if player_bet <= 0 or player_bet > self.player.chips:
+                    print(f"Invalid chip amount. Must be from 1 to {self.player.chips}\n")
+                else:
+                    good_bet = True
+            
+            print(f"You bet {player_bet}\n")
+            self.pot = player_bet
+            # -------------
 
-        # Check for results
-        # -----------------
+            # Dealing round
+            # -------------
+            print("==========[ Dealing ]==========")
+            self.player.add_to_hand( self.deck.draw_card() )
+            self.dealer.add_to_hand( self.deck.draw_card() )
+            self.player.add_to_hand( self.deck.draw_card() )
+            self.dealer.add_to_hand( self.deck.draw_card(False) )
+        
+            print("Dealers hand:")
+            self.dealer.print_hand_list()
+            print(f"Total value: {self.dealer.get_hand_value()}")
 
-        # -----------------
+            print("\nYour hand:")
+            self.player.print_hand_list()
+            print(f"Total value: {self.player.get_hand_value()}\n")
 
-        # Game end
-        # --------
-        # Will only continue if answer is y, else end
-        end_input = input("Do you wish to play again? (y/n) ")
-        if "y" == end_input:
-            dealer.clear_hand()
-            player.clear_hand()
-            continue
-        else:
-            is_running = False
-        # --------
+            # Check for blackjack
+            if self.player.get_hand_value() == 21:
+                self.player_win(True)
+                self._new_game()
+                continue
+            # -------------
+
+            # Run the playing round loop
+            # jump over rest of the loop returned -1 (player busted)
+            if self._playing_round() == -1:
+                continue
+
+            # Dealers play
+            # ------------
+            print("==========[ Dealers Play ]==========")
+            # First flip the dealers second card
+            self.dealer.flip_up_hand()
+            max_cards_dealer = False
+            while not max_cards_dealer:
+                if self.dealer.get_hand_value() < 17:
+                    self.dealer.add_to_hand( self.deck.draw_card() )
+                    continue
+                else:
+                    max_cards_dealer = True
+
+            print("Dealer drew until they got more than 17. Dealers hand:")
+            self.dealer.print_hand_list()
+            print(f"Total value: {self.dealer.get_hand_value()}\n")
+
+            if self.dealer.get_hand_value() > 21:
+                print("Dealer BUSTED!")
+                self.player_win()
+                self._new_game()
+                continue
+            # ------------
+
+            # Check for results
+            # -----------------
+            player_result = self.player.get_hand_value()
+            dealer_result = self.dealer.get_hand_value()
+            if player_result == dealer_result:      # Draw
+                print("It's a DRAW")
+                print("No reward\n")
+            
+            elif player_result > dealer_result:     # Player won
+                print(f"You won with {player_result} against {dealer_result}")
+                self.player_win()
+
+            elif player_result < dealer_result:     # Dealer won
+                print(f"You lost with {player_result} against {dealer_result}")
+                self.dealer_win()
+            # -----------------
+
+            self._new_game()
+
+# Main entry point
+if __name__ == "__main__":
+    # Opening text
+    print(''' _______   __                      __           _____                      __       
+/       \ /  |                    /  |         /     |                    /  |      
+$$$$$$$  |$$ |  ______    _______ $$ |   __    $$$$$ |  ______    _______ $$ |   __ 
+$$ |__$$ |$$ | /      \  /       |$$ |  /  |      $$ | /      \  /       |$$ |  /  |
+$$    $$< $$ | $$$$$$  |/$$$$$$$/ $$ |_/$$/  __   $$ | $$$$$$  |/$$$$$$$/ $$ |_/$$/ 
+$$$$$$$  |$$ | /    $$ |$$ |      $$   $$<  /  |  $$ | /    $$ |$$ |      $$   $$<  
+$$ |__$$ |$$ |/$$$$$$$ |$$ \_____ $$$$$$  \ $$ \__$$ |/$$$$$$$ |$$ \_____ $$$$$$  \ 
+$$    $$/ $$ |$$    $$ |$$       |$$ | $$  |$$    $$/ $$    $$ |$$       |$$ | $$  |
+$$$$$$$/  $$/  $$$$$$$/  $$$$$$$/ $$/   $$/  $$$$$$/   $$$$$$$/  $$$$$$$/ $$/   $$/ ''')
+    print("By Thomas Waaler\n")
+
+    game = Game()
+    game.start()
