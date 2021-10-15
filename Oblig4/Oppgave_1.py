@@ -3,6 +3,7 @@
 # Author: Thomas Waaler
 # Info: BlackJack
 # ==================================================
+# NOTE Generert ASCII fra https://patorjk.com/software/
 import random
 
 def get_int_input(message: str) -> int:
