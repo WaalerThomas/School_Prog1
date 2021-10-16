@@ -1,9 +1,9 @@
 # ==================================================
 # File: Oppgave_1.py
 # Author: Thomas Waaler
-# Info: BlackJack
+# Info: TUI BlackJack Game
 # ==================================================
-# NOTE Generert ASCII fra https://patorjk.com/software/
+# NOTE Generated ASCII from https://patorjk.com/software/
 import random
 
 def get_int_input(message: str) -> int:
@@ -38,6 +38,7 @@ class Deck():
         self._populate_deck()
 
     def new_deck(self):
+        '''Will reset the deck into original state (52 cards in order)'''
         self._populate_deck()
 
     def shuffle(self):
@@ -65,6 +66,9 @@ class Contender():
         self.hand = list()
 
     def get_hand_value(self) -> int:
+        '''Calculates the total visible hand value
+        
+        returns value'''
         total_value = 0
         aces = []       # Store the aces for calulating value after the other cards
         for card in self.hand:
@@ -80,7 +84,7 @@ class Contender():
         # Calculate value of aces
         # TODO Do some failcheck testing on this calculation here
         if len(aces) > 0:
-            # TODO Problem if you have two aces and the first gets calulated as 11 but it would have been better that both would be 1
+            # TODO If you have two aces and the first gets calulated as 11 but it would have been better that both would be 1
             for card in aces:
                 if total_value + 11 > 21:
                     total_value += 1
@@ -146,6 +150,7 @@ class Game():
             if "y" == end_input:
                 self.dealer.clear_hand()
                 self.player.clear_hand()
+                self.deck.new_deck()
                 print("\n\n\n==========[ Next Round ]==========")
             else:
                 self.is_running = False
@@ -154,7 +159,7 @@ class Game():
     def _playing_round(self) -> int:
         '''Enters the playing round loop
         
-        returns: -1 if busted, 0 if successful'''
+        returns: -1 if busted or won, 0 if successful'''
         playing_round = True
         while playing_round:
             print("Do you wish to hit or stay?\n1 - Hit\n2 - Stay")
@@ -170,6 +175,12 @@ class Game():
                 if self.player.get_hand_value() > 21:
                     print("You BUSTED!")
                     self.dealer_win()
+                    self._new_game()
+                    return -1
+                
+                elif self.player.get_hand_value() == 21:
+                    print("You won by hitting 21!")
+                    self.player_win()
                     self._new_game()
                     return -1
 
@@ -194,6 +205,12 @@ class Game():
             # -------------
             print("==========[ Betting Round ]==========")
             print(f"You have {self.player.chips} chips\n")
+
+            # Will end the game if player is out of chips
+            if self.player.chips <= 0:
+                print("Unfortunately you're out of chips. Better luck next time")
+                self.is_running = False
+                continue
 
             good_bet = False
             while not good_bet:
@@ -231,7 +248,7 @@ class Game():
             # -------------
 
             # Run the playing round loop
-            # jump over rest of the loop returned -1 (player busted)
+            # jump over rest of the loop returned -1 (player busted or got 21)
             if self._playing_round() == -1:
                 continue
 
