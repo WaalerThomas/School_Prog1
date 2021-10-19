@@ -82,9 +82,8 @@ class Contender():
             total_value += card.value
         
         # Calculate value of aces
-        # TODO Do some failcheck testing on this calculation here
+        # TODO Add a check for if you have two aces and the first gets calulated as 11 but it would have been better that both would be 1
         if len(aces) > 0:
-            # TODO If you have two aces and the first gets calulated as 11 but it would have been better that both would be 1
             for card in aces:
                 if total_value + 11 > 21:
                     total_value += 1
