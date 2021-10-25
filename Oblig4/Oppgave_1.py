@@ -142,7 +142,7 @@ class Game():
     def dealer_win(self):
         print(f"You lost a total {self.pot} chips\n")
         self.player.chips -= self.pot
-    
+
     def _new_game(self):
         # Will only continue if answer is y, else end
             end_input = input("Do you wish to play again? (y/n) ")
