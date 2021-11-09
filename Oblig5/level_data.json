@@ -13,16 +13,188 @@
             "# B  B          GG#",
             "##### ### #@##  GG#",
             "    #     #########",
-            "    #######"
+            "    #######        "
         ]
     },
     {
         "name": "Level 2",
+        "author":"Thinking Rabbitt",
         "level_data": [
-            "####",
-            "# @ #",
-            "# B #",
-            "####"
+            "############  ",
+            "#GG  #     ###",
+            "#GG  # B  B  #",
+            "#GG  #B####  #",
+            "#GG    @ ##  #",
+            "#GG  # #  B ##",
+            "###### ##B B #",
+            "  # B  B B B #",
+            "  #    #     #",
+            "  ############"
+        ]
+    },
+    {
+        "name": "Level 3",
+        "author":"Thinking Rabbitt",
+        "level_data": [
+            "        ######## ",
+            "        #     @# ",
+            "        # B#B ## ",
+            "        # B  B#  ",
+            "        ##B B #  ",
+            "######### B # ###",
+            "#GGGG  ## B  B  #",
+            "##GGG    B  B   #",
+            "#GGGG  ##########",
+            "########         "
+        ]
+    },
+    {
+        "name": "Level 4",
+        "author":"Thinking Rabbitt",
+        "level_data": [
+            "           ########",
+            "           #  GGGG#",
+            "############  GGGG#",
+            "#    #  B B   GGGG#",
+            "# BBB#B  B #  GGGG#",
+            "#  B     B #  GGGG#",
+            "# BB #B B B########",
+            "#  B #     #       ",
+            "## #########       ",
+            "#    #    ##       ",
+            "#     B   ##       ",
+            "#  BB#BB  @#       ",
+            "#    #    ##       ",
+            "###########        "
+        ]
+    },
+    {
+        "name": "Level 5",
+        "author":"Thinking Rabbitt",
+        "level_data": [
+            "        #####    ",
+            "        #   #####",
+            "        # #B##  #",
+            "        #     B #",
+            "######### ###   #",
+            "#GGGG  ## B  B###",
+            "#GGGG    B BB ## ",
+            "#GGGG  ##B  B @# ",
+            "#########  B  ## ",
+            "        # B B  # ",
+            "        ### ## # ",
+            "          #    # ",
+            "          ###### "
+        ]
+    },
+    {
+        "name": "Level 6",
+        "author":"Thinking Rabbitt",
+        "level_data": [
+            "######  ### ",
+            "#GG  # ##@##",
+            "#GG  ###   #",
+            "#GG     BB #",
+            "#GG  # # B #",
+            "#GG### # B #",
+            "#### B #B  #",
+            "   #  B# B #",
+            "   # B  B  #",
+            "   #  ##   #",
+            "   #########"
+        ]
+    },
+    {
+        "name": "Level 7",
+        "author":"Thinking Rabbitt",
+        "level_data": [
+            "       ##### ",
+            " #######   ##",
+            "## # @## BB #",
+            "#    B      #",
+            "#  B  ###   #",
+            "### #####B###",
+            "# B  ### GG# ",
+            "# B B B GGG# ",
+            "#    ###GGG# ",
+            "# BB # #GGG# ",
+            "#  ### ##### ",
+            "####         "
+        ]
+    },
+    {
+        "name": "Level 8",
+        "author":"Thinking Rabbitt",
+        "level_data": [
+            "  ####          ",
+            "  #  ###########",
+            "  #    B   B B #",
+            "  # B# B #  B  #",
+            "  #  B B  #    #",
+            "### B# #  #### #",
+            "#@#B B B  ##   #",
+            "#    B #B#   # #",
+            "#   B    B B B #",
+            "#####  #########",
+            "  #      #      ",
+            "  #      #      ",
+            "  #GGGGGG#      ",
+            "  #GGGGGG#      ",
+            "  #GGGGGG#      ",
+            "  ########      "
+        ]
+    },
+    {
+        "name": "Level 9",
+        "author":"Thinking Rabbitt",
+        "level_data": [
+            "          #######",
+            "          #  GGG#",
+            "      #####  GGG#",
+            "      #      G G#",
+            "      #  ##  GGG#",
+            "      ## ##  GGG#",
+            "     ### ########",
+            "     # BBB ##    ",
+            " #####  B B #####",
+            "##   #B B   #   #",
+            "#@ B  B    B  B #",
+            "###### BB B #####",
+            "     #      #    ",
+            "     ########    "
+        ]
+    },
+    {
+        "name": "Level 10",
+        "author":"Thinking Rabbitt",
+        "level_data": [
+            " ###  #############",
+            "##@####       #   #",
+            "# BB   BB  B B GGG#",
+            "#  BBB#    B  #GGG#",
+            "# B   # BB BB #GGG#",
+            "###   #  B    #GGG#",
+            "#     # B B B #GGG#",
+            "#    ###### ###GGG#",
+            "## #  #  B B  #GGG#",
+            "#  ## # BB B B##GG#",
+            "# GG# #  B      #G#",
+            "# GG# # BBB BBB #G#",
+            "##### #       # #G#",
+            "    # ######### #G#",
+            "    #           #G#",
+            "    ###############"
+        ]
+    },
+    {
+        "name": "Test Level",
+        "author": "Thomas Waaler",
+        "level_data": [
+            "#####",
+            "# @ ######",
+            "# B B   G#",
+            "#  G######",
+            "#####"
         ]
     }
 ]

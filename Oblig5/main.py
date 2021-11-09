@@ -1,114 +1,56 @@
 import pygame
-from pygame.draw import rect
-from pygame.locals import *
+import pygame_gui
+import time
 
-import json
-from dataclasses import dataclass
-
-# http://borgar.net/programs/sokoban/#Sokoban
-
-# Colours
-# -------
-TEAL = (0, 121, 107)
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-# -------
-
-SPRITE_SIZE = 32
-
-# Dictionary of sprite positions in the spritesheet
-sprite_keys = {
-    " ": (0, 0),    # Floor
-    "#": (0, 13),   # Solid Wall
-    "@": (24, 0),   # Player
-    "B": (15, 14),  # Box
-    "G": (35, 12),  # Goal
-}
-
-def get_level_map(index: int) -> list:
-    '''Returns the map data of given index.
-    Starts at 1
-    
-    Return 'List' of map. 'None' if failed'''
-    if index <= 0:
-        return None
-
-    with open("level_data.json") as file:
-        json_obj = json.load(file)
-        
-        if index > len(json_obj):
-            return None
-
-        return json_obj[index - 1]['level_data']
-
-def get_sprite_map(level_data: list) -> list:
-    sprite_list = []
-    sprite_sheet = pygame.image.load("resources/colored_transparent_packed.png").convert_alpha()
-
-    for y in range( len(level_data) ):
-        for x in range( len(level_data[y]) ):
-            sprite_pos = sprite_keys[ level_data[y][x] ]
-
-            sprite = pygame.sprite.Sprite()
-            sprite.rect = pygame.Rect((sprite_pos[0] * SPRITE_SIZE, sprite_pos[1] * SPRITE_SIZE), (32, 32))   # Where in the spritesheet to get the image
-            sprite.image = pygame.Surface(sprite.rect.size, pygame.SRCALPHA)
-            sprite.image.blit(sprite_sheet, (0, 0), sprite.rect)
-
-            sprite.rect.topleft = (x * 32, y * 32)    # Position for screen
-            sprite_list.append(sprite)
-    
-    return sprite_list
-
-class Level():
-    pass
-
-
-class Player(pygame.sprite.Sprite):
-    def __init__(self) -> None:
-        super().__init__()
-
+from cust_const import *
+from scene_handler import SceneHandler
+from scene import *
 
 class Game():
-    def __init__(self, title) -> None:
+    def __init__(self, title):
         self.FPS_CAP = 60
         self.TITLE = title
         
-        self.delta_time = pygame.time.Clock()
+        self.clock = pygame.time.Clock()
+        self.delta_time = 0
         self.is_running = True
         self.size = (800, 600)
-        self.display_surf = None
+        self.display_surf = pygame.Surface
+        
+        self.scene_handler = SceneHandler
 
-    def on_event(self, event):
-        '''Handle given event'''
-        if event.type == QUIT:
-            self.is_running = False
+    def update(self):
+        '''Update surface from surface buffer'''
+        pygame.display.update()
+        self.delta_time = self.clock.tick(self.FPS_CAP)
+        pygame.display.set_caption(f"{self.TITLE} - {round(self.clock.get_fps(), 1)} {self.delta_time}ms")
 
     def run(self):
         '''Initialize pygame and run main game loop'''
         pygame.init()
         self.display_surf = pygame.display.set_mode(self.size)
         pygame.display.set_caption(self.TITLE)
-
         
+        self.scene_handler = SceneHandler()
+        mainmenu_scene = Scene_MainMenu(self.display_surf, self.scene_handler, self)
+        loading_scene = Scene_Loading(self.display_surf, self.scene_handler, self)
+        game_scene = Scene_Game(self.display_surf, self.scene_handler, self)
+        self.scene_handler.add_scene("MainMenu", mainmenu_scene)
+        self.scene_handler.add_scene("Loading", loading_scene)
+        self.scene_handler.add_scene("Game", game_scene)
+        self.scene_handler.set_scene("MainMenu")    # Sets the current scene
 
-        #my_level = get_sprite_map( get_level_map(2) )
-
+        # Main game loop
         while self.is_running:
-            # Go through all events that has arisen 
-            for event in pygame.event.get():
-                self.on_event(event)
-            
-            self.display_surf.fill(TEAL)
-            #for sprt in my_level:
-            #    self.display_surf.blit(sprt.image, sprt.rect)
-            
-            # Render everything
-            pygame.display.update()
-            self.delta_time.tick(self.FPS_CAP)
+            self.scene_handler.check_events()
+            self.scene_handler.draw()
+            self.update()
         
         # Cleanup
+        # -------
         pygame.display.quit()
         pygame.quit()
+        # -------
 
 
 # Main game entry
