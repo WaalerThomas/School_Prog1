@@ -1,5 +1,6 @@
 import pygame
 import json
+import time
 
 from cust_const import *
 from spritesheet import SpriteSheet
@@ -19,6 +20,7 @@ class LevelHandler():
         self.name = "None"
         self.author = "Not Set"
         self.level_int = 0
+        self.level_count = 0
         self.player_start_pos = (0, 0)
         self.map_data = []
         self.walls = []
@@ -29,6 +31,18 @@ class LevelHandler():
         current_level = self.level_int
         self._clear_level()
         self.set_level(current_level)
+    
+    def set_next_level(self):
+        current_level = self.level_int
+        
+        # Will wrap around to the first level
+        # TODO At the last level remove the option to continue
+        if current_level + 1 > self.level_count:
+            self._clear_level()
+            self.set_level(1)
+        else:
+            self._clear_level()
+            self.set_level(current_level + 1)
 
     def set_level(self, level: int):
         '''Sets the level and loads everything. Levels starts at 1'''
@@ -38,7 +52,7 @@ class LevelHandler():
             self._clear_level()
             return
         
-        with open("level_data.json") as file:
+        with open("resources/level_data.json") as file:
             json_obj = json.load(file)
 
             if level > len(json_obj):
@@ -49,6 +63,7 @@ class LevelHandler():
             self.name =     json_obj[level - 1]['name']
             self.author =   json_obj[level - 1]['author']
             self.level_int = level
+            self.level_count = len(json_obj)
         
         for y in range( len(self.map_data) ):
             for x in range( len(self.map_data[y]) ):
@@ -61,9 +76,6 @@ class LevelHandler():
                     self.player.sprite.rect.topleft = self.player_start_pos
                     continue
 
-                #sprite_pos = SPRITE_KEYS[current_char]
-                #sprite = SpriteSheet().get_sprite(sprite_pos)
-                #sprite.rect.topleft = (x * SPRITE_SIZE, y * SPRITE_SIZE)  # Position for screen
                 sprite_rect = pygame.Rect(x * SPRITE_SIZE, y * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE) # Position for screen
 
                 if current_char == WALL:
@@ -82,8 +94,8 @@ class LevelHandler():
         for goal in self.goals:
             has_box_inside = False
 
-            for box in self.boxes:
-                if goal.rect.colliderect(box):
+            for box in self.boxes.values():
+                if goal.colliderect(box):
                     has_box_inside = True
                     break
             

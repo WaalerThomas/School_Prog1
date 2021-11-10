@@ -1,6 +1,4 @@
 import pygame
-import pygame_gui
-import time
 
 from cust_const import *
 from scene_handler import SceneHandler
@@ -23,7 +21,7 @@ class Game():
         '''Update surface from surface buffer'''
         pygame.display.update()
         self.delta_time = self.clock.tick(self.FPS_CAP)
-        pygame.display.set_caption(f"{self.TITLE} - {round(self.clock.get_fps(), 1)} {self.delta_time}ms")
+        pygame.display.set_caption(f"{self.TITLE} - {round(self.clock.get_fps(), 1)}FPS {self.delta_time}ms")
 
     def run(self):
         '''Initialize pygame and run main game loop'''
@@ -33,10 +31,8 @@ class Game():
         
         self.scene_handler = SceneHandler()
         mainmenu_scene = Scene_MainMenu(self.display_surf, self.scene_handler, self)
-        loading_scene = Scene_Loading(self.display_surf, self.scene_handler, self)
         game_scene = Scene_Game(self.display_surf, self.scene_handler, self)
         self.scene_handler.add_scene("MainMenu", mainmenu_scene)
-        self.scene_handler.add_scene("Loading", loading_scene)
         self.scene_handler.add_scene("Game", game_scene)
         self.scene_handler.set_scene("MainMenu")    # Sets the current scene
 

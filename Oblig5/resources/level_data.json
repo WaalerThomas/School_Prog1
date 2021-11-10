@@ -1,7 +1,20 @@
 [
     {
+        "name": "Level 0",
+        "author": "Thomas Waaler",
+        "finished": "False",
+        "level_data": [
+            "#####",
+            "# @ ######",
+            "# B B   G#",
+            "#  G######",
+            "#####     "
+        ]
+    },
+    {
         "name": "Level 1",
         "author": "Thinking Rabbitt",
+        "finished": "False",
         "level_data": [
             "    #####          ",
             "    #   #          ",
@@ -19,6 +32,7 @@
     {
         "name": "Level 2",
         "author":"Thinking Rabbitt",
+        "finished": "False",
         "level_data": [
             "############  ",
             "#GG  #     ###",
@@ -35,6 +49,7 @@
     {
         "name": "Level 3",
         "author":"Thinking Rabbitt",
+        "finished": "False",
         "level_data": [
             "        ######## ",
             "        #     @# ",
@@ -51,6 +66,7 @@
     {
         "name": "Level 4",
         "author":"Thinking Rabbitt",
+        "finished": "False",
         "level_data": [
             "           ########",
             "           #  GGGG#",
@@ -71,6 +87,7 @@
     {
         "name": "Level 5",
         "author":"Thinking Rabbitt",
+        "finished": "False",
         "level_data": [
             "        #####    ",
             "        #   #####",
@@ -90,6 +107,7 @@
     {
         "name": "Level 6",
         "author":"Thinking Rabbitt",
+        "finished": "False",
         "level_data": [
             "######  ### ",
             "#GG  # ##@##",
@@ -107,6 +125,7 @@
     {
         "name": "Level 7",
         "author":"Thinking Rabbitt",
+        "finished": "False",
         "level_data": [
             "       ##### ",
             " #######   ##",
@@ -125,6 +144,7 @@
     {
         "name": "Level 8",
         "author":"Thinking Rabbitt",
+        "finished": "False",
         "level_data": [
             "  ####          ",
             "  #  ###########",
@@ -147,6 +167,7 @@
     {
         "name": "Level 9",
         "author":"Thinking Rabbitt",
+        "finished": "False",
         "level_data": [
             "          #######",
             "          #  GGG#",
@@ -167,6 +188,7 @@
     {
         "name": "Level 10",
         "author":"Thinking Rabbitt",
+        "finished": "False",
         "level_data": [
             " ###  #############",
             "##@####       #   #",
@@ -184,17 +206,6 @@
             "    # ######### #G#",
             "    #           #G#",
             "    ###############"
-        ]
-    },
-    {
-        "name": "Test Level",
-        "author": "Thomas Waaler",
-        "level_data": [
-            "#####",
-            "# @ ######",
-            "# B B   G#",
-            "#  G######",
-            "#####"
         ]
     }
 ]
