@@ -5,9 +5,6 @@ class Player:
         self.sprite = sprite
         self.screen = screen
 
-    def update(self, delta_time):
-        pass
-
     def draw(self):
         self.screen.blit(self.sprite.image, self.sprite.rect)
     
