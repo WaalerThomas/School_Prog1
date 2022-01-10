@@ -1,0 +1,3 @@
+- Del 1 - Alt utenom: 1.11, 1.12, 1.13, 1.15
+- Del 2 - Alt utenom: 2.1.c, 2.3
+- Del 3 - 3.1 og 3.2 er halveis relevante. Disse er her basert på at dere skal lage nettsider, noe som i og seg selv ikke er relevant for årets eksamen. Likevel kan disse oppgavene gi dere en god ide av omfang på mer krevende programmeringsoppgaver som kan forekomme på eksamen. Det er også mulighet for å gjøre et forøk på å løse disse oppgavene i konteksten av python. Altså ignorere de nettside-spesifikke aspektene og fokusere på hovedfunksjonaliteten, som er fil- og databehandlingen.
